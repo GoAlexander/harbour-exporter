@@ -28,14 +28,11 @@
 #define M_LOCALSHARE ".local/share/"
 
 //NEW:
-DbSqlite::DbSqlite(QObject *parent) : QObject(parent)
-{
+DbSqlite::DbSqlite(QObject *parent) : QObject(parent) {
 
 }
 
-
-DbSqlite::DbSqlite(const QString &path)
-{
+DbSqlite::DbSqlite(const QString &path) {
     m_db = QSqlDatabase::addDatabase("QSQLITE");
     m_db.setDatabaseName(path);
 
@@ -50,8 +47,7 @@ DbSqlite::DbSqlite(const QString &path)
     }
 }
 
-DbSqlite::~DbSqlite()
-{
+DbSqlite::~DbSqlite() {
     if (NULL != m_queryp) {
         delete m_queryp;
         m_queryp = NULL;
@@ -67,20 +63,21 @@ DbSqlite::~DbSqlite()
     QSqlDatabase::removeDatabase(connection);
 }
 
-int DbSqlite::nrOfNoteEntries() const
-{
+int DbSqlite::nrOfNoteEntries() const {
+
+    QSqlQuery * query = new QSqlQuery(db);
+
     int nr=0;
 
-    QSqlQuery query("SELECT count(*) FROM notes");
-    if(query.exec()) {
-        if(query.next())
-            nr = query.value(0).toInt();
+    query->prepare("SELECT count(*) FROM notes");
+    if(query->exec()) {
+        if(query->next())
+            nr = query->value(0).toInt();
     }
     return nr;
 }
 
-QString DbSqlite::findNotesFileName()
-{
+QString DbSqlite::findNotesFileName() {
     QDir dir(QDir::homePath() + "/" + M_NOTESDBPATH);
     if (!dir.exists()) return QString();
     QStringList names = dir.entryList(QDir::Files);
@@ -100,51 +97,32 @@ QString DbSqlite::findNotesFileName()
     return QString();
 }
 
-
-QString DbSqlite::getNotes() const
-{
-    QSqlDatabase db;
-    db = QSqlDatabase::addDatabase("QSQLITE");
-
-    QString note;
-    QString notesPath;
-    //QSqlQuery query;
-
-
-
-    QDir dir(QDir::homePath() + "/" + M_NOTESDBPATH);
-    if (!dir.exists()) return QString();
-    QStringList names = dir.entryList(QDir::Files);
-    for (int i = 0 ; i < names.count() ; ++i) {
-        QString filename = names.at(i);
-        if (filename.endsWith("sqlite")) {
-            QString inifilename = filename;
-            QFile inifile( dir.absoluteFilePath(inifilename.remove(".sqlite").append(".ini")) );
-            if( inifile.exists() ) {
-                QSettings inisettings( dir.absoluteFilePath(inifilename), QSettings::IniFormat );
-                if( inisettings.value("Name").toString() == "silicanotes" ) {
-                    notesPath = filename;
-                }
-            }
-        }
+void DbSqlite::writeNotes(QString note) {
+    //TODO: mkdir
+    QFile file(QDir::homePath() + "/Documents/" + "exported-notes.txt");
+    if ( file.open(QIODevice::WriteOnly | QIODevice::Text)){
+        QTextStream stream( &file );
+        stream << note;
     }
+    file.close();
 
+    //TODO return something or write about possible errors
+}
 
-    db.setDatabaseName(dir.absoluteFilePath(notesPath));
+QString DbSqlite::getNotes() {
+    QString note;
+
+    //TODO вынести инициализацию DB в отдельную функцию
+    db = QSqlDatabase::addDatabase("QSQLITE");
+    db.setDatabaseName(findNotesFileName());
+
     if (db.open()) {
-        QSqlQuery * query = new QSqlQuery(db);
 
-        //max notes
-        int nr=0;
-        QSqlQuery * query2 = new QSqlQuery(db);
-        query2->prepare("SELECT count(*) FROM notes");
-        if(query2->exec()) {
-            if(query2->next())
-                nr = query2->value(0).toInt();
-        }
+        QSqlQuery * query = new QSqlQuery(db);
+        int notesOverall = nrOfNoteEntries();
 
         //nr-1 (instead of nr) because of strange behavior
-        for(int i = 0; i < nr-1; i++) {
+        for(int i = 0; i < notesOverall-1; i++) {
 
             query->prepare("SELECT body FROM notes WHERE pagenr=(:index)");
             query->bindValue(":index", i);
@@ -155,20 +133,9 @@ QString DbSqlite::getNotes() const
             }
         }
     }
-
-
     db.close();
-    //db.removeDatabase(); //???
-    //TODO: mkdir
 
-    //QFile file( "~/Documents/exported-notes.txt" );
-    QFile file(QDir::homePath() + "/Documents/" + "exported-notes.txt");
-    if ( file.open(QIODevice::WriteOnly | QIODevice::Text)){
-        QTextStream stream( &file );
-        stream << note;
-    }
-
-    file.close();
+    writeNotes(note);
 
     return note;
 }

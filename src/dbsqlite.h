@@ -24,24 +24,23 @@ public:
      //Close the db connection
     ~DbSqlite();
 
-    // returns number of entries in notes table
-    int nrOfNoteEntries() const;
-    // returns file name of notes database
-    //static QString findNotesFileName();
-    // returns complete note
-    //QString getNote() const;
-
-//иначе qml не увидит getNote как функцию
+//иначе qml не увидит getNotes как функцию
 public slots:
-    // returns file name of notes database
-    static QString findNotesFileName();
-    // returns complete note
-    QString getNotes() const;
-
+    // returns all notes
+    QString getNotes();
 
 private:
-    QSqlDatabase m_db;
+    QSqlDatabase db;
+    QSqlDatabase m_db; //TEST
     QSqlQuery* m_queryp = NULL;
+
+    // returns number of entries in notes table
+    int nrOfNoteEntries() const;
+
+    // returns file name of notes database
+    static QString findNotesFileName();
+
+    void writeNotes(QString note); //TODO make public?
 };
 
 #endif // DBSQLITE_H

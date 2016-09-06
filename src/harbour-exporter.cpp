@@ -33,12 +33,6 @@
 #endif
 
 #include <sailfishapp.h>
-
-/*
-#include "txtfileview.h"
-#include "notesfileview.h"
-#include "sqlfileview.h"
-*/
 #include "dbsqlite.h"
 
 int main(int argc, char *argv[])
@@ -52,8 +46,6 @@ int main(int argc, char *argv[])
     //
     // To display the view, call "show()" (will show fullscreen on device).
 
-    //qmlRegisterType<MyObject>("com.myself", 1, 0, "DbSqlite");
-
     QGuiApplication *app = SailfishApp::application(argc, argv);
     QQuickView *view = SailfishApp::createView();
 
@@ -63,7 +55,4 @@ int main(int argc, char *argv[])
     view->showFullScreen();
     return app->exec();
 
-
-    //return SailfishApp::main(argc, argv);
 }
-
