@@ -17,10 +17,7 @@ CONFIG += sailfishapp
 QT += sql
 
 SOURCES += src/harbour-exporter.cpp \
-    src/dbsqlite.cpp \
-    src/notesfileview.cpp \
-    src/sqlfileview.cpp \
-    src/txtfileview.cpp
+    src/dbsqlite.cpp
 
 OTHER_FILES += qml/harbour-exporter.qml \
     qml/cover/CoverPage.qml \
@@ -49,6 +46,3 @@ DISTFILES += \
 
 HEADERS += \
     src/dbsqlite.h \
-    src/txtfileview.h \
-    src/notesfileview.h \
-    src/sqlfileview.h \

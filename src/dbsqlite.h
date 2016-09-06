@@ -4,10 +4,18 @@
 #include <QSqlDatabase>
 #include <QSqlQuery>
 #include <QHash>
+#include <QObject>
 
-class DbSqlite
-{
+class DbSqlite : public QObject{
+    Q_OBJECT
+signals:
+
 public:
+    //???
+    //explicit DbSqlite (QObject* parent = 0) : QObject(parent) {}
+    explicit DbSqlite (QObject *parent = 0);
+
+
     // Constructor sets up connection with db and opens it
     // @param path - absolute path to db file
     DbSqlite(const QString& path);
@@ -18,9 +26,9 @@ public:
     // returns number of entries in notes table
     int nrOfNoteEntries() const;
     // returns file name of notes database
-    static QString findNotesFileName();
+    //static QString findNotesFileName();
     // returns complete note
-    QString getNote(int index) const;
+    //QString getNote() const;
 
     //get all tables
     QStringList getAllTables() const;
@@ -36,6 +44,14 @@ public:
     QSqlQuery* getTxtColumnQuery(QString table, QString field, QString searchtxt);
     // returns the owner of the given filename
     QString getOwner(QString fullpath);
+
+//иначе qml не увидит getNote как функцию
+public slots:
+    // returns file name of notes database
+    static QString findNotesFileName();
+    // returns complete note
+    QString getNote() const;
+
 
 private:
     QSqlDatabase m_db;

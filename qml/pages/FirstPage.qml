@@ -1,8 +1,14 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
+import DbSqlite 1.0
 
 Page {
     id: page
+
+    //create class for exporting
+    DbSqlite {
+        id: myDbSqlite
+    }
 
     SilicaFlickable {
         anchors.fill: parent
@@ -41,6 +47,10 @@ Page {
                 onClicked: {
                     //output.text = buttonAnswer();
                     console.log("Export notes clicked!");
+                    //console.log(myDbSqlite.findNotesFileName());
+                    console.log(myDbSqlite.getNote());
+                    console.log("Export notes clicked!2");
+
                 }
             }
 

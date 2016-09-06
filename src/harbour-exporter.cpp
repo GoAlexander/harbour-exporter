@@ -34,9 +34,12 @@
 
 #include <sailfishapp.h>
 
+/*
 #include "txtfileview.h"
 #include "notesfileview.h"
 #include "sqlfileview.h"
+*/
+#include "dbsqlite.h"
 
 int main(int argc, char *argv[])
 {
@@ -49,6 +52,18 @@ int main(int argc, char *argv[])
     //
     // To display the view, call "show()" (will show fullscreen on device).
 
-    return SailfishApp::main(argc, argv);
+    //qmlRegisterType<MyObject>("com.myself", 1, 0, "DbSqlite");
+
+    QGuiApplication *app = SailfishApp::application(argc, argv);
+    QQuickView *view = SailfishApp::createView();
+
+    qmlRegisterType<DbSqlite>("DbSqlite", 1, 0, "DbSqlite");
+
+    view->setSource(SailfishApp::pathTo("qml/harbour-exporter.qml"));
+    view->showFullScreen();
+    return app->exec();
+
+
+    //return SailfishApp::main(argc, argv);
 }
 

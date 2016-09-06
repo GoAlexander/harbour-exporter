@@ -18,10 +18,18 @@
 #include <QStandardPaths>
 #include <QSettings>
 #include <QDebug>
+#include <QObject>
 #include "dbsqlite.h"
 
 #define M_NOTESDBPATH ".local/share/jolla-notes/QML/OfflineStorage/Databases/"
 #define M_LOCALSHARE ".local/share/"
+
+//NEW:
+DbSqlite::DbSqlite(QObject *parent) : QObject(parent)
+{
+
+}
+
 
 DbSqlite::DbSqlite(const QString &path)
 {
@@ -89,6 +97,8 @@ QString DbSqlite::findNotesFileName()
     return QString();
 }
 
+/*
+ * old version
 QString DbSqlite::getNote(int index) const
 {
     QString note;
@@ -101,6 +111,84 @@ QString DbSqlite::getNote(int index) const
             note = query.value(0).toString();
     }
     return note;
+}
+*/
+
+
+
+QString DbSqlite::getNote() const
+{
+    QSqlDatabase db;
+    db = QSqlDatabase::addDatabase("QSQLITE");
+
+    QString note;
+    //QSqlQuery query;
+
+
+
+    QDir dir(QDir::homePath() + "/" + M_NOTESDBPATH);
+    if (!dir.exists()) return QString();
+    QStringList names = dir.entryList(QDir::Files);
+    for (int i = 0 ; i < names.count() ; ++i) {
+        QString filename = names.at(i);
+        if (filename.endsWith("sqlite")) {
+            QString inifilename = filename;
+            QFile inifile( dir.absoluteFilePath(inifilename.remove(".sqlite").append(".ini")) );
+            if( inifile.exists() ) {
+                QSettings inisettings( dir.absoluteFilePath(inifilename), QSettings::IniFormat );
+                if( inisettings.value("Name").toString() == "silicanotes" ) {
+
+
+                    db.setDatabaseName(dir.absoluteFilePath(filename));
+                    if (db.open()) {
+                        QSqlQuery * query = new QSqlQuery(db);
+
+                        //max notes
+                        int nr=0;
+                        QSqlQuery * query2 = new QSqlQuery(db);
+                        query2->prepare("SELECT count(*) FROM notes");
+                        if(query2->exec()) {
+                            if(query2->next())
+                                nr = query2->value(0).toInt();
+                        }
+
+                        //nr-1 (instead of nr) because of strange behavior
+                        for(int i = 0; i < nr-1; i++) {
+
+
+                            query->prepare("SELECT body FROM notes WHERE pagenr=(:index)");
+                            query->bindValue(":index", i);
+                            if(query->exec()) {
+                                if(query->next())
+                                    //здесь еще каждую итерацию вставлять разделитель / в разные файлы раскидывать!!!
+                                    note = note + query->value(0).toString();
+                            }
+                        }
+
+
+                    }
+
+                }
+            }
+        }
+    }
+
+
+    //db = QSqlDatabase::addDatabase("QSQLITE");
+    //db.setDatabaseName((QDir::homePath() + "/" + M_NOTESDBPATH));
+    //db.open(); //if open
+
+
+    //query.prepare("SELECT body FROM notes");
+    //if(query.exec()) {
+        //if(query.next())
+            //note = query.value(0).toString();
+    //}
+
+    //delete query;
+    //db.close();
+
+    return "hi!!! " + note;
 }
 
 //get all tables

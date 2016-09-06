@@ -50,13 +50,4 @@
         <translation type="unfinished"></translation>
     </message>
 </context>
-<context>
-    <name>TxtFileView</name>
-    <message numerus="yes">
-        <source>&lt;b&gt;[%1/%n hit(s)]&lt;/b&gt;&lt;br&gt;</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-        </translation>
-    </message>
-</context>
 </TS>
