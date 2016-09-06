@@ -20,6 +20,9 @@
 #include <QDebug>
 #include <QObject>
 #include "dbsqlite.h"
+#include <QFile>
+#include <QCoreApplication>
+#include <QTextStream>
 
 #define M_NOTESDBPATH ".local/share/jolla-notes/QML/OfflineStorage/Databases/"
 #define M_LOCALSHARE ".local/share/"
@@ -97,31 +100,14 @@ QString DbSqlite::findNotesFileName()
     return QString();
 }
 
-/*
- * old version
-QString DbSqlite::getNote(int index) const
-{
-    QString note;
-    QSqlQuery query;
 
-    query.prepare("SELECT body FROM notes WHERE pagenr=(:index)");
-    query.bindValue(":index", index);
-    if(query.exec()) {
-        if(query.next())
-            note = query.value(0).toString();
-    }
-    return note;
-}
-*/
-
-
-
-QString DbSqlite::getNote() const
+QString DbSqlite::getNotes() const
 {
     QSqlDatabase db;
     db = QSqlDatabase::addDatabase("QSQLITE");
 
     QString note;
+    QString notesPath;
     //QSqlQuery query;
 
 
@@ -137,173 +123,52 @@ QString DbSqlite::getNote() const
             if( inifile.exists() ) {
                 QSettings inisettings( dir.absoluteFilePath(inifilename), QSettings::IniFormat );
                 if( inisettings.value("Name").toString() == "silicanotes" ) {
-
-
-                    db.setDatabaseName(dir.absoluteFilePath(filename));
-                    if (db.open()) {
-                        QSqlQuery * query = new QSqlQuery(db);
-
-                        //max notes
-                        int nr=0;
-                        QSqlQuery * query2 = new QSqlQuery(db);
-                        query2->prepare("SELECT count(*) FROM notes");
-                        if(query2->exec()) {
-                            if(query2->next())
-                                nr = query2->value(0).toInt();
-                        }
-
-                        //nr-1 (instead of nr) because of strange behavior
-                        for(int i = 0; i < nr-1; i++) {
-
-
-                            query->prepare("SELECT body FROM notes WHERE pagenr=(:index)");
-                            query->bindValue(":index", i);
-                            if(query->exec()) {
-                                if(query->next())
-                                    //здесь еще каждую итерацию вставлять разделитель / в разные файлы раскидывать!!!
-                                    note = note + query->value(0).toString();
-                            }
-                        }
-
-
-                    }
-
+                    notesPath = filename;
                 }
             }
         }
     }
 
 
-    //db = QSqlDatabase::addDatabase("QSQLITE");
-    //db.setDatabaseName((QDir::homePath() + "/" + M_NOTESDBPATH));
-    //db.open(); //if open
+    db.setDatabaseName(dir.absoluteFilePath(notesPath));
+    if (db.open()) {
+        QSqlQuery * query = new QSqlQuery(db);
 
-
-    //query.prepare("SELECT body FROM notes");
-    //if(query.exec()) {
-        //if(query.next())
-            //note = query.value(0).toString();
-    //}
-
-    //delete query;
-    //db.close();
-
-    return "hi!!! " + note;
-}
-
-//get all tables
-QStringList DbSqlite::getAllTables() const
-{
-    return m_db.tables(QSql::Tables);
-}
-
-// returns all txt column headers in a given table
-QStringList DbSqlite::getAllTxtColumns(QString table) const
-{
-    QStringList list;
-    QSqlQuery query;
-    query.prepare("PRAGMA table_info(" + table + ")");
-    if(query.exec())
-        while (query.next()) {
-            if( query.value(2).toString() == "TEXT" ) list.append(query.value(1).toString());
+        //max notes
+        int nr=0;
+        QSqlQuery * query2 = new QSqlQuery(db);
+        query2->prepare("SELECT count(*) FROM notes");
+        if(query2->exec()) {
+            if(query2->next())
+                nr = query2->value(0).toInt();
         }
-    return list;
-}
 
-// returns number of rows in a given table, which contain searched text
-int DbSqlite::countAllRows(QString table) const
-{
-    int nr=0;
+        //nr-1 (instead of nr) because of strange behavior
+        for(int i = 0; i < nr-1; i++) {
 
-    QSqlQuery query("SELECT count(*) FROM " + table);
-    if(query.exec()) {
-        if(query.next())
-            nr = query.value(0).toInt();
-    }
-    return nr;
-}
-
-// returns an element in a given table and field and index
-QString DbSqlite::getSingleElement(QString table, QString field, int idx) const
-{
-    QString element;
-    QSqlQuery query;
-
-    //get index field
-    QString idxfield = "";
-    query.prepare("PRAGMA table_info(" + table + ")");
-    if(query.exec())
-        while (query.next())
-            if( query.value(5).toInt() == 1 ) idxfield = query.value(1).toString();
-    if (idxfield == "") idxfield = "_rowid_";
-    //popraw z _rowid_ dla tabel, gdzie primary key nie jest int
-
-    //prepare single element query
-    QString s;
-    query.prepare("SELECT " +field+ " FROM " +table+ " WHERE " +idxfield+ " = " +s.setNum(idx) );
-    if(query.exec()) {
-        if(query.next())
-            element = query.value(0).toString();
-    }
-    return element;
-}
-
-// returns complete row in a given table and index
-QHash<QString, QString> DbSqlite::getSingleRow(QString table, int idx) const
-{
-    QStringList nameslist;
-    QHash<QString, QString> row;
-    QSqlQuery query;
-
-    //get index field and table fields
-    QString idxfield = "";
-    query.prepare("PRAGMA table_info(" + table + ")");
-    if(query.exec())
-        while (query.next()) {
-            if( query.value(5).toInt() == 1 ) idxfield = query.value(1).toString();
-            nameslist.append(query.value(1).toString());
+            query->prepare("SELECT body FROM notes WHERE pagenr=(:index)");
+            query->bindValue(":index", i);
+            if(query->exec()) {
+                if(query->next())
+                    note = note + query->value(0).toString();
+                    note = note + "\n" + "|==============================|" + "\n";
+            }
         }
-    if (idxfield == "") idxfield = "_rowid_";
-    //popraw z _rowid_ dla tabel, gdzie primary key nie jest int
-
-    //prepare single element query
-    QString s;
-    query.prepare("SELECT * FROM " +table+ " WHERE " +idxfield+ " = " +s.setNum(idx) );
-    if(query.exec()) {
-        if(query.next())
-            for(int i=0; i<nameslist.count(); i++)
-                row.insert(nameslist.at(i),query.value(i).toString());
     }
-    return row;
-}
 
 
-// returns pointer to an executed search query (value0=index, value1=txtfield)
-QSqlQuery* DbSqlite::getTxtColumnQuery(QString table, QString field, QString searchtxt)
-{
-    //get index field
-    QSqlQuery query;
-    QString idxfield = "";
-    query.prepare("PRAGMA table_info(" + table + ")");
-    if(query.exec())
-        while (query.next())
-            if( query.value(5).toInt() == 1 ) idxfield = query.value(1).toString();
-    if (idxfield == "") idxfield = "_rowid_";
-    //popraw z _rowid_ dla tabel, gdzie primary key nie jest int
+    db.close();
+    //db.removeDatabase(); //???
+    //TODO: mkdir
 
-    QSettings settings;
-    QString maxres = settings.value("maxResultsPerSection", 50).toString();
-    m_queryp->prepare("SELECT " +idxfield+ "," +field+ " FROM " +table+ " WHERE " +field+ " LIKE \"%" +searchtxt+
-                    "%\" LIMIT " +maxres );
-    if(m_queryp->exec()) return m_queryp;
-    return NULL;
-}
+    //QFile file( "~/Documents/exported-notes.txt" );
+    QFile file(QDir::homePath() + "/Documents/" + "exported-notes.txt");
+    if ( file.open(QIODevice::WriteOnly | QIODevice::Text)){
+        QTextStream stream( &file );
+        stream << note;
+    }
 
-QString DbSqlite::getOwner(QString fullpath)
-{
-    int idx = fullpath.lastIndexOf(M_LOCALSHARE);
-    int s = QString(M_LOCALSHARE).size();
-    if( idx == -1) return fullpath.mid(fullpath.lastIndexOf("/"));
-    int len = fullpath.indexOf("/",idx+s)-(idx+s);
-    return fullpath.mid(idx+s,len);
+    file.close();
+
+    return note;
 }

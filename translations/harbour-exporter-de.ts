@@ -30,6 +30,10 @@
         <source>Exporter.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source></source>
+        <translation></translation>
+    </message>
 </context>
 <context>
     <name>FirstPage</name>
@@ -48,6 +52,10 @@
     <message>
         <source>Export bookmarks</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source></source>
+        <translation></translation>
     </message>
 </context>
 </TS>

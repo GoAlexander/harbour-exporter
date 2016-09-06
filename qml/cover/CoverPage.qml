@@ -30,11 +30,21 @@
 
 import QtQuick 2.0
 import Sailfish.Silica 1.0
+import DbSqlite 1.0
 
 CoverBackground {
+
+    //create class for exporting
+    DbSqlite {
+        id: myDbSqlite
+    }
+
+    //TODO вывести иконку, как в File Browser
+
     Label {
-        id: label
+        id: output
         anchors.centerIn: parent
+        color: Theme.highlightColor
         text: qsTr("Exporter.")
     }
 
@@ -42,13 +52,15 @@ CoverBackground {
         id: coverAction
 
         CoverAction {
-            iconSource: "image://theme/icon-cover-next"
+            iconSource: "image://theme/icon-cover-favorite"
         }
 
         CoverAction {
-            iconSource: "image://theme/icon-cover-pause"
+            iconSource: "image://theme/icon-cover-message"
+            onTriggered: {
+                console.log(myDbSqlite.getNotes())
+                output.text = "Notes exported!";
+            }
         }
     }
 }
-
-

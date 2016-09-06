@@ -6,15 +6,16 @@
 #include <QHash>
 #include <QObject>
 
+#include <QFile>
+#include <QCoreApplication>
+#include <QTextStream>
+
 class DbSqlite : public QObject{
     Q_OBJECT
 signals:
 
 public:
-    //???
-    //explicit DbSqlite (QObject* parent = 0) : QObject(parent) {}
-    explicit DbSqlite (QObject *parent = 0);
-
+    explicit DbSqlite (QObject *parent = 0); //???
 
     // Constructor sets up connection with db and opens it
     // @param path - absolute path to db file
@@ -30,27 +31,12 @@ public:
     // returns complete note
     //QString getNote() const;
 
-    //get all tables
-    QStringList getAllTables() const;
-    // returns all txt column headers in a given table
-    QStringList getAllTxtColumns(QString table) const;
-    // returns number of rows in a given table
-    int countAllRows(QString table) const;
-    // returns an element in a given table and field
-    QString getSingleElement(QString table, QString field, int idx) const;
-    // returns complete row in a given table and index
-    QHash<QString, QString> getSingleRow(QString table, int idx) const;
-    // returns pointer to an executed search query (value0=index, value1=txtfield)
-    QSqlQuery* getTxtColumnQuery(QString table, QString field, QString searchtxt);
-    // returns the owner of the given filename
-    QString getOwner(QString fullpath);
-
 //иначе qml не увидит getNote как функцию
 public slots:
     // returns file name of notes database
     static QString findNotesFileName();
     // returns complete note
-    QString getNote() const;
+    QString getNotes() const;
 
 
 private:

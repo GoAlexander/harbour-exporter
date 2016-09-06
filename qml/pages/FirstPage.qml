@@ -31,25 +31,25 @@ Page {
                 title: qsTr("Exporter.")
             }
 
-            /*
             Label {
+                id: output
                 x: Theme.paddingLarge
-                text: qsTr("Hello Sailors")
+                horizontalAlignment: Text.Center
+                //text: qsTr("")
                 color: Theme.secondaryHighlightColor
                 font.pixelSize: Theme.fontSizeExtraLarge
             }
-            */
 
             Button {
                 id: notesButton
                 text: qsTr("Export notes")
                 anchors.horizontalCenter: parent.horizontalCenter
                 onClicked: {
-                    //output.text = buttonAnswer();
                     console.log("Export notes clicked!");
                     //console.log(myDbSqlite.findNotesFileName());
-                    console.log(myDbSqlite.getNote());
+                    console.log(myDbSqlite.getNotes());
                     console.log("Export notes clicked!2");
+                    output.text = "Notes exported!";
 
                 }
             }
@@ -64,7 +64,7 @@ Page {
                     //output.text = buttonAnswer();
                     console.log("Export bookmarks clicked!");
                 }
-            }
+            }       
         }
     }
 }
