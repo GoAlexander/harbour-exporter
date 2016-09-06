@@ -1,7 +1,7 @@
 # Exporter.
 Sailfish OS app for exporting notes and bookmarks as plain text from the default apps.
   
-С++ code to work with DB is from [SearchNemo](https://github.com/sargo-devel/harbour-searchnemo).
+С++ code to work with SQLite is changed version of source code from the app [SearchNemo](https://github.com/sargo-devel/harbour-searchnemo).
   
 License
 -------
