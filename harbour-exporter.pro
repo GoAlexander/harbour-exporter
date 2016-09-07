@@ -12,7 +12,8 @@
 # The name of your application
 TARGET = harbour-exporter
 
-CONFIG += sailfishapp
+CONFIG += sailfishapp \
+    console
 
 QT += sql
 

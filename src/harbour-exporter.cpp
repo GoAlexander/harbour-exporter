@@ -37,14 +37,29 @@
 
 int main(int argc, char *argv[])
 {
-    // SailfishApp::main() will display "qml/template.qml", if you need more
-    // control over initialization, you can use:
-    //
-    //   - SailfishApp::application(int, char *[]) to get the QGuiApplication *
-    //   - SailfishApp::createView() to get a new QQuickView * instance
-    //   - SailfishApp::pathTo(QString) to get a QUrl to a resource file
-    //
-    // To display the view, call "show()" (will show fullscreen on device).
+    if(argc > 1) {
+        if (strcmp(argv[1],"-b") == 0) {
+            //work in progress...
+
+        } else if (strcmp(argv[1],"-n") == 0) {
+            //DbSqlite * myDbSqlite = new DbSqlite();
+            //myDbSqlite->getNotes();
+            DbSqlite myDbSqlite;
+            qDebug() << myDbSqlite.getNotes();
+        } else {
+            //TODO change to stderr?
+            //TODO export -> (only to the terminal) ???
+            qDebug() << "Usage: harbour-exporter [OPTION]" << endl;
+            qDebug() << "  -b" << endl;
+            qDebug() << "    export bookmarks " << endl;
+            qDebug() << "  -n" << endl;
+            qDebug() << "    export notes" << endl;
+            qDebug() << "  -h" << endl;
+            qDebug() << "    display this help and exit" << endl;
+        }
+
+        exit(0);
+    }
 
     QGuiApplication *app = SailfishApp::application(argc, argv);
     QQuickView *view = SailfishApp::createView();
