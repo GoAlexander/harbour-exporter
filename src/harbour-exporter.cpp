@@ -33,7 +33,7 @@
 #endif
 
 #include <sailfishapp.h>
-#include "dbsqlite.h"
+#include "exporter.h"
 
 int main(int argc, char *argv[])
 {
@@ -42,18 +42,17 @@ int main(int argc, char *argv[])
             //work in progress...
 
         } else if (strcmp(argv[1],"-n") == 0) {
-            //DbSqlite * myDbSqlite = new DbSqlite();
-            //myDbSqlite->getNotes();
-            DbSqlite myDbSqlite;
-            qDebug() << myDbSqlite.getNotes();
+            //Exporter * myExporter = new Exporter();
+            //myExporter->getNotes();
+            Exporter myExporter;
+            qDebug() << myExporter.getNotes(); //TODO implement output in Release build
         } else {
             //TODO change to stderr?
-            //TODO export -> (only to the terminal) ???
             qDebug() << "Usage: harbour-exporter [OPTION]" << endl;
             qDebug() << "  -b" << endl;
-            qDebug() << "    export bookmarks " << endl;
+            qDebug() << "    export bookmarks (exports ONLY to the terminal)" << endl;
             qDebug() << "  -n" << endl;
-            qDebug() << "    export notes" << endl;
+            qDebug() << "    export notes (exports ONLY to the terminal)" << endl;
             qDebug() << "  -h" << endl;
             qDebug() << "    display this help and exit" << endl;
         }
@@ -64,7 +63,7 @@ int main(int argc, char *argv[])
     QGuiApplication *app = SailfishApp::application(argc, argv);
     QQuickView *view = SailfishApp::createView();
 
-    qmlRegisterType<DbSqlite>("DbSqlite", 1, 0, "DbSqlite");
+    qmlRegisterType<Exporter>("Exporter", 1, 0, "Exporter");
 
     view->setSource(SailfishApp::pathTo("qml/harbour-exporter.qml"));
     view->showFullScreen();

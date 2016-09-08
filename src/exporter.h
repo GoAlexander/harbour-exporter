@@ -1,5 +1,5 @@
-#ifndef DBSQLITE_H
-#define DBSQLITE_H
+#ifndef Exporter_H
+#define Exporter_H
 
 #include <QSqlDatabase>
 #include <QSqlQuery>
@@ -10,29 +10,27 @@
 #include <QCoreApplication>
 #include <QTextStream>
 
-class DbSqlite : public QObject{
+class Exporter : public QObject{
     Q_OBJECT
 signals:
 
 public:
-    explicit DbSqlite (QObject *parent = 0); //???
+    explicit Exporter (QObject *parent = 0); //???
 
-    // Constructor sets up connection with db and opens it
-    // @param path - absolute path to db file
-    DbSqlite(const QString& path);
+    Exporter(QString path);
 
      //Close the db connection
-    ~DbSqlite();
+    ~Exporter();
 
 //иначе qml не увидит getNotes как функцию
 public slots:
     // returns all notes
     QString getNotes();
+    QString getBookmarks();
+    void write(QString note,  QString path);
 
 private:
     QSqlDatabase db;
-    QSqlDatabase m_db; //TEST
-    QSqlQuery* m_queryp = NULL;
 
     // returns number of entries in notes table
     int nrOfNoteEntries() const;
@@ -40,7 +38,8 @@ private:
     // returns file name of notes database
     static QString findNotesFileName();
 
-    void writeNotes(QString note); //TODO make public?
+    //returns status of DB (works/doesn`t work)
+    bool initDB();
 };
 
-#endif // DBSQLITE_H
+#endif // Exporter_H

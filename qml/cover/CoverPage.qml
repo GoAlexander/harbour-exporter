@@ -30,17 +30,19 @@
 
 import QtQuick 2.0
 import Sailfish.Silica 1.0
-import DbSqlite 1.0
+import Exporter 1.0
 
 CoverBackground {
+    //var bookmarks;
+    //var notes;
+    property string bookmarks
+    property string notes
 
-    //create class for exporting
-    DbSqlite {
-        id: myDbSqlite
+    Exporter {
+        id: myExporter
     }
 
     //TODO вывести иконку, как в File Browser
-
     Label {
         id: output
         anchors.centerIn: parent
@@ -53,12 +55,20 @@ CoverBackground {
 
         CoverAction {
             iconSource: "image://theme/icon-cover-favorite"
+            onTriggered: {
+                bookmarks = myExporter.getBookmarks()
+                console.log(bookmarks)
+                console.log(myExporter.write(bookmarks, "/Documents/exported-bookmarks.txt"))
+                output.text = "Bookmarks exported!"; //TODO use wrapper!
+            }
         }
 
         CoverAction {
             iconSource: "image://theme/icon-cover-message"
             onTriggered: {
-                console.log(myDbSqlite.getNotes())
+                notes = myExporter.getNotes();
+                console.log(notes)
+                console.log(myExporter.write(notes, "/Documents/exported-notes.txt"))
                 output.text = "Notes exported!";
             }
         }

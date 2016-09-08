@@ -19,51 +19,42 @@
 #include <QSettings>
 #include <QDebug>
 #include <QObject>
-#include "dbsqlite.h"
+#include "exporter.h"
 #include <QFile>
 #include <QCoreApplication>
 #include <QTextStream>
 
+#include <QJsonObject>
+#include <QJsonDocument>
+#include <QJsonArray>
+
 #define M_NOTESDBPATH ".local/share/jolla-notes/QML/OfflineStorage/Databases/"
 #define M_LOCALSHARE ".local/share/"
+#define M_BOOKMARKSJSONPATH ".local/share/org.sailfishos/sailfish-browser/bookmarks.json"
 
-//NEW:
-DbSqlite::DbSqlite(QObject *parent) : QObject(parent) {
+
+Exporter::Exporter(QObject *parent) : QObject(parent) {
 
 }
 
-DbSqlite::DbSqlite(const QString &path) {
-    m_db = QSqlDatabase::addDatabase("QSQLITE");
-    m_db.setDatabaseName(path);
+//TODO: bug -> delete Exporter::Exporter(QString path)
+Exporter::Exporter(QString path) {
 
-    if (!m_db.open())
-    {
-        //qDebug() << "Error: connection with database fail: " << path;
-    }
-    else
-    {
-        if (NULL == m_queryp) m_queryp = new QSqlQuery(m_db);
-        //qDebug() << "Database: connection ok: " << path;
-    }
 }
 
-DbSqlite::~DbSqlite() {
-    if (NULL != m_queryp) {
-        delete m_queryp;
-        m_queryp = NULL;
-    }
-    QString connection = m_db.connectionName();
+Exporter::~Exporter() {
 
-    if (m_db.isOpen())
-    {
-        m_db.close();
-        //qDebug() << "Database: connection closed: " << m_db.databaseName();
-    }
-    m_db = QSqlDatabase();
-    QSqlDatabase::removeDatabase(connection);
 }
 
-int DbSqlite::nrOfNoteEntries() const {
+
+bool Exporter::initDB() {
+    db = QSqlDatabase::addDatabase("QSQLITE");
+    db.setDatabaseName(findNotesFileName());
+
+    return db.open();
+}
+
+int Exporter::nrOfNoteEntries() const {
 
     QSqlQuery * query = new QSqlQuery(db);
 
@@ -77,7 +68,7 @@ int DbSqlite::nrOfNoteEntries() const {
     return nr;
 }
 
-QString DbSqlite::findNotesFileName() {
+QString Exporter::findNotesFileName() {
     QDir dir(QDir::homePath() + "/" + M_NOTESDBPATH);
     if (!dir.exists()) return QString();
     QStringList names = dir.entryList(QDir::Files);
@@ -97,9 +88,10 @@ QString DbSqlite::findNotesFileName() {
     return QString();
 }
 
-void DbSqlite::writeNotes(QString note) {
+void Exporter::write(QString note,  QString path) {
     //TODO: mkdir
-    QFile file(QDir::homePath() + "/Documents/" + "exported-notes.txt");
+    //QFile file(QDir::homePath() + "/Documents/" + "exported-notes.txt");
+    QFile file(QDir::homePath() + path);
     if ( file.open(QIODevice::WriteOnly | QIODevice::Text)){
         QTextStream stream( &file );
         stream << note;
@@ -109,20 +101,16 @@ void DbSqlite::writeNotes(QString note) {
     //TODO return something or write about possible errors
 }
 
-QString DbSqlite::getNotes() {
+QString Exporter::getNotes() {
     QString note;
 
-    //TODO вынести инициализацию DB в отдельную функцию
-    db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName(findNotesFileName());
-
-    if (db.open()) {
+    if (Exporter::initDB()) {
 
         QSqlQuery * query = new QSqlQuery(db);
         int notesOverall = nrOfNoteEntries();
 
         //nr-1 (instead of nr) because of strange behavior
-        for(int i = 0; i < notesOverall-1; i++) {
+        for(int i = 0; i < notesOverall-2; i++) {
 
             query->prepare("SELECT body FROM notes WHERE pagenr=(:index)");
             query->bindValue(":index", i);
@@ -135,7 +123,29 @@ QString DbSqlite::getNotes() {
     }
     db.close();
 
-    writeNotes(note);
-
     return note;
+}
+
+QString Exporter::getBookmarks() {
+    QString bookmarks;
+
+    QString val;
+    QFile file(M_BOOKMARKSJSONPATH);
+    file.open(QIODevice::ReadOnly | QIODevice::Text);
+    val = file.readAll();
+
+    QJsonDocument d = QJsonDocument::fromJson(val.toUtf8());
+    QJsonObject json = d.object();
+
+    qWarning() << d.isNull();
+    qDebug() << json["url"].toString();
+    qDebug() << json.value(QString("url"));
+    bookmarks = json["url"].toString();
+
+    QJsonArray test = json["usr"].toArray();
+    qWarning() << test[1].toString();
+
+    file.close();
+
+    return bookmarks;
 }
