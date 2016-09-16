@@ -55,12 +55,21 @@ Page {
             font { family: Theme.fontFamily; pixelSize: Theme.fontSizeSmall }
             color: Theme.highlightColor
             text: "<style>a:link { color: " + Theme.highlightColor + "; }</style><br/>" +
-                qsTr("\"Exporter.\" is for exporting your notes and bookmarks as plain text from the default apps. You can see exported data in `~/Documents/Exporter.` folder.") +
+                qsTr("\"Exporter.\" is for exporting your notes and bookmarks as plain text from the default apps. You can see exported data in `~/Documents/exported-*.txt.` folder.") +
                 "<br/>" +
                 qsTr("License: GPLv3") +
                 "<br/><br/>" + qsTr("You can find the source code at the:") +
                 "<br/> <a href=\"https://github.com/GoAlexander/harbour-exporter\">" +
-                qsTr("GitHub") + "</a>";
+                qsTr("GitHub") + "</a>" +
+                "<br/>" +
+                "<br/>" +
+                qsTr("Special thanks:") +
+                "<br/>" + qsTr("-sargo-devel for the SearchNemo which source code formed the basis of this app") +
+                "<br/>" +
+                "<br/>" +
+                qsTr("Tip:")+
+                "<br/>" +
+                qsTr("For using exported bookmarks in your desktop browser try OneTab extension.");
 
             onLinkActivated:
             {

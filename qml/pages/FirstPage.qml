@@ -7,7 +7,6 @@ Page {
 
     property string notes
 
-
     //create class for exporting
     Exporter {
         id: myExporter

@@ -88,9 +88,7 @@ QString Exporter::findNotesFileName() {
     return QString();
 }
 
-void Exporter::write(QString note,  QString path) {
-    //TODO: mkdir
-    //QFile file(QDir::homePath() + "/Documents/" + "exported-notes.txt");
+void Exporter::write(QString note,  QString path) { 
     QFile file(QDir::homePath() + path);
     if ( file.open(QIODevice::WriteOnly | QIODevice::Text)){
         QTextStream stream( &file );
@@ -109,8 +107,9 @@ QString Exporter::getNotes() {
         QSqlQuery * query = new QSqlQuery(db);
         int notesOverall = nrOfNoteEntries();
 
+        //TODO BUG!
         //nr-1 (instead of nr) because of strange behavior
-        for(int i = 0; i < notesOverall-2; i++) {
+        for(int i = 0; i < notesOverall-3; i++) {
 
             query->prepare("SELECT body FROM notes WHERE pagenr=(:index)");
             query->bindValue(":index", i);
@@ -127,6 +126,7 @@ QString Exporter::getNotes() {
 }
 
 QString Exporter::getBookmarks() {
+    QTextStream out(stdout);
     QString bookmarks;
 
     QString val;
@@ -137,13 +137,14 @@ QString Exporter::getBookmarks() {
     QJsonDocument d = QJsonDocument::fromJson(val.toUtf8());
     QJsonObject json = d.object();
 
-    qWarning() << d.isNull();
-    qDebug() << json["url"].toString();
-    qDebug() << json.value(QString("url"));
+
+    out << d.isNull(); //DEBUG
+    out << json["url"].toString();
+    //out << json.value(QString("url")); //???
     bookmarks = json["url"].toString();
 
-    QJsonArray test = json["usr"].toArray();
-    qWarning() << test[1].toString();
+    QJsonArray test = json["usr"].toArray(); //TEST
+    out << test[0].toString(); //DEBUG
 
     file.close();
 

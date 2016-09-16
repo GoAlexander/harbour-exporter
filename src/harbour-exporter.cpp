@@ -34,10 +34,12 @@
 
 #include <sailfishapp.h>
 #include "exporter.h"
+#include <QTextStream>
 
 int main(int argc, char *argv[])
 {
     if(argc > 1) {
+        QTextStream out(stdout);
         if (strcmp(argv[1],"-b") == 0) {
             //work in progress...
 
@@ -45,16 +47,15 @@ int main(int argc, char *argv[])
             //Exporter * myExporter = new Exporter();
             //myExporter->getNotes();
             Exporter myExporter;
-            qDebug() << myExporter.getNotes(); //TODO implement output in Release build
+            out << myExporter.getNotes();
         } else {
-            //TODO change to stderr?
-            qDebug() << "Usage: harbour-exporter [OPTION]" << endl;
-            qDebug() << "  -b" << endl;
-            qDebug() << "    export bookmarks (exports ONLY to the terminal)" << endl;
-            qDebug() << "  -n" << endl;
-            qDebug() << "    export notes (exports ONLY to the terminal)" << endl;
-            qDebug() << "  -h" << endl;
-            qDebug() << "    display this help and exit" << endl;
+            out << "Usage: harbour-exporter [OPTION]" << endl;
+            out << "  -b" << endl;
+            out << "    export bookmarks (exports ONLY to the terminal)" << endl;
+            out << "  -n" << endl;
+            out << "    export notes (exports ONLY to the terminal)" << endl;
+            out << "  -h" << endl;
+            out << "    display this help and exit" << endl;
         }
 
         exit(0);

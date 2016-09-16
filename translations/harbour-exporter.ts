@@ -8,10 +8,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&quot;Exporter.&quot; is for exporting your notes and bookmarks as plain text from the default apps. You can see exported data in `~/Documents/Exporter.` folder.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>License: GPLv3</source>
         <translation type="unfinished"></translation>
     </message>
@@ -21,6 +17,26 @@
     </message>
     <message>
         <source>GitHub</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&quot;Exporter.&quot; is for exporting your notes and bookmarks as plain text from the default apps. You can see exported data in `~/Documents/exported-*.txt.` folder.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tip:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>For using exported bookmarks in your desktop browser try OneTab extension.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Special thanks:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>-sargo-devel for the SearchNemo which source code formed the basis of this app</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

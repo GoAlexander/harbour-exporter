@@ -33,8 +33,6 @@ import Sailfish.Silica 1.0
 import Exporter 1.0
 
 CoverBackground {
-    //var bookmarks;
-    //var notes;
     property string bookmarks
     property string notes
 
@@ -46,6 +44,9 @@ CoverBackground {
     Label {
         id: output
         anchors.centerIn: parent
+        horizontalAlignment: Text.Center
+        width: parent.width
+        wrapMode: Text.WordWrap
         color: Theme.highlightColor
         text: qsTr("Exporter.")
     }
