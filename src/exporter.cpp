@@ -107,9 +107,7 @@ QString Exporter::getNotes() {
         QSqlQuery * query = new QSqlQuery(db);
         int notesOverall = nrOfNoteEntries();
 
-        //TODO BUG!
-        //nr-1 (instead of nr) because of strange behavior
-        for(int i = 0; i < notesOverall-3; i++) {
+        for(int i = 0; i < notesOverall+1; i++) {
 
             query->prepare("SELECT body FROM notes WHERE pagenr=(:index)");
             query->bindValue(":index", i);
