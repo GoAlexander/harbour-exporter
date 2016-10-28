@@ -92,6 +92,7 @@ void Exporter::write(QString note,  QString path) {
     QFile file(QDir::homePath() + path);
     if ( file.open(QIODevice::WriteOnly | QIODevice::Text)){
         QTextStream stream( &file );
+        stream.setCodec("UTF-8");
         stream << note;
     }
     file.close();
