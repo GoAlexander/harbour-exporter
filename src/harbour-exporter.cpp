@@ -46,8 +46,12 @@ int main(int argc, char *argv[])
         } else if (strcmp(argv[1],"-n") == 0) {
             //Exporter * myExporter = new Exporter();
             //myExporter->getNotes();
+
+            //Exporter myExporter;
+            //out << myExporter.getNotes();
             Exporter myExporter;
-            out << myExporter.getNotes();
+            myExporter.write(myExporter.getNotes(), "/Documents/exported-notes.txt"); //TODO remake!!!
+
         } else {
             out << "Usage: harbour-exporter [OPTION]" << endl;
             out << "  -b" << endl;

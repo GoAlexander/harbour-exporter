@@ -134,16 +134,11 @@ QString Exporter::getBookmarks() {
     val = file.readAll();
 
     QJsonDocument d = QJsonDocument::fromJson(val.toUtf8());
-    QJsonObject json = d.object();
+    QJsonArray bookmarksArray = d.array();
 
-
-    out << d.isNull(); //DEBUG
-    out << json["url"].toString();
-    //out << json.value(QString("url")); //???
-    bookmarks = json["url"].toString();
-
-    QJsonArray test = json["usr"].toArray(); //TEST
-    out << test[0].toString(); //DEBUG
+    for (QJsonArray::Iterator bookmarksIterator = bookmarksArray.begin(); bookmarksIterator!=bookmarksArray.end();bookmarksIterator++) {
+        bookmarks += (*bookmarksIterator).toObject()["url"].toString() + "  |  " + (*bookmarksIterator).toObject()["title"].toString()  + "\n";
+    }
 
     file.close();
 
