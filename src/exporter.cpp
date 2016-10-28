@@ -137,7 +137,7 @@ QString Exporter::getBookmarks() {
     QJsonArray bookmarksArray = d.array();
 
     for (QJsonArray::Iterator bookmarksIterator = bookmarksArray.begin(); bookmarksIterator!=bookmarksArray.end();bookmarksIterator++) {
-        bookmarks += (*bookmarksIterator).toObject()["url"].toString() + "  |  " + (*bookmarksIterator).toObject()["title"].toString()  + "\n";
+        bookmarks += (*bookmarksIterator).toObject()["url"].toString() + " | " + (*bookmarksIterator).toObject()["title"].toString()  + "\n";
     }
 
     file.close();
