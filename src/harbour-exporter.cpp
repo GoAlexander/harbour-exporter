@@ -41,25 +41,34 @@ int main(int argc, char *argv[])
     if(argc > 1) {
         QTextStream out(stdout);
         if (strcmp(argv[1],"-b") == 0) {
-            //work in progress...
+            if  (argv[2] == NULL) {
+                Exporter myExporter;
+                myExporter.write(myExporter.getBookmarks(), "/Documents/exported-bookmarks.txt"); //TODO remake?
+            }
+            else {
+                Exporter myExporter;
+                myExporter.write(myExporter.getBookmarks(), argv[2]);
+            }
 
         } else if (strcmp(argv[1],"-n") == 0) {
-            //Exporter * myExporter = new Exporter();
-            //myExporter->getNotes();
-
-            //Exporter myExporter;
-            //out << myExporter.getNotes();
-            Exporter myExporter;
-            myExporter.write(myExporter.getNotes(), "/Documents/exported-notes.txt"); //TODO remake!!!
+            if  (argv[2] == NULL) {
+                Exporter myExporter;
+                myExporter.write(myExporter.getNotes(), "/Documents/exported-notes.txt"); //TODO remake?
+            }
+            else {
+                Exporter myExporter;
+                myExporter.write(myExporter.getNotes(), argv[2]);
+            }
 
         } else {
-            out << "Usage: harbour-exporter [OPTION]" << endl;
+            out << "Usage: harbour-exporter [OPTION] [PATH]" << endl;
             out << "  -b" << endl;
             out << "    export bookmarks (exports ONLY to the terminal)" << endl;
             out << "  -n" << endl;
             out << "    export notes (exports ONLY to the terminal)" << endl;
             out << "  -h" << endl;
             out << "    display this help and exit" << endl;
+            out << "PATH is optional and can be only exported to the $HOME directory (use paths like this: /Documents/myExport.txt). Hint: If path is empty then it will be exported to the default location: ~/Documents/exported-notes.txt)." << endl;
         }
 
         exit(0);

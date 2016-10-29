@@ -6,6 +6,7 @@ Page {
     id: page
 
     property string notes
+    property string bookmarks
 
     //create class for exporting
     Exporter {
@@ -48,13 +49,10 @@ Page {
                 anchors.horizontalCenter: parent.horizontalCenter
                 onClicked: {
                     console.log("Export notes clicked!");
-                    //console.log(myExporter.findNotesFileName());
-                    //console.log(myExporter.getNotes());
-                    //console.log(myExporter.write(myExporter.getNotes(), "/Documents/exported-notes.txt"));
 
                     notes = myExporter.getNotes();
-                    console.log(notes)
-                    console.log(myExporter.write(notes, "/Documents/exported-notes.txt"))
+                    console.log(notes);
+                    console.log(myExporter.write(notes, "/Documents/exported-notes.txt"));
 
                     console.log("Export notes clicked!2");
                     output.text = "Notes exported!";
@@ -70,12 +68,14 @@ Page {
                 anchors.horizontalCenter: parent.horizontalCenter
                 onClicked: {
                     console.log("Export bookmarks clicked!");
-                    //in progress
+
+                    bookmarks = myExporter.getBookmarks();
+                    console.log(bookmarks);
+                    console.log(myExporter.write(notes, "/Documents/exported-bookmarks.txt"));
+
                     output.text = "Bookmarks exported!";
                 }
             }       
         }
     }
 }
-
-

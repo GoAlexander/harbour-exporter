@@ -55,7 +55,7 @@ Page {
             font { family: Theme.fontFamily; pixelSize: Theme.fontSizeSmall }
             color: Theme.highlightColor
             text: "<style>a:link { color: " + Theme.highlightColor + "; }</style><br/>" +
-                qsTr("\"Exporter.\" is for exporting your notes and bookmarks as plain text from the default apps. You can see exported data in `~/Documents/exported-*.txt.` folder.") +
+                qsTr("\"Exporter.\" is for exporting your notes and bookmarks as plain text from the default apps. You can see exported data in `~/Documents/exported-*.txt.` folder. In addition you can use console mode by calling program harbour-exporter in your terminal. See \"harbour-exporter -h\" for more details.") +
                 "<br/>" +
                 qsTr("License: GPLv3") +
                 "<br/><br/>" + qsTr("You can find the source code at the:") +

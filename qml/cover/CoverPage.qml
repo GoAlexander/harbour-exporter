@@ -60,7 +60,7 @@ CoverBackground {
                 bookmarks = myExporter.getBookmarks()
                 console.log(bookmarks)
                 console.log(myExporter.write(bookmarks, "/Documents/exported-bookmarks.txt"))
-                output.text = "Bookmarks exported!"; //TODO use wrapper!
+                output.text = "Bookmarks exported!";
             }
         }
 
