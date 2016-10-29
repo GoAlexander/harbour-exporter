@@ -71,7 +71,7 @@ Page {
 
                     bookmarks = myExporter.getBookmarks();
                     console.log(bookmarks);
-                    console.log(myExporter.write(notes, "/Documents/exported-bookmarks.txt"));
+                    console.log(myExporter.write(bookmarks, "/Documents/exported-bookmarks.txt"));
 
                     output.text = "Bookmarks exported!";
                 }

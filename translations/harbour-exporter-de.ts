@@ -20,10 +20,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&quot;Exporter.&quot; is for exporting your notes and bookmarks as plain text from the default apps. You can see exported data in `~/Documents/exported-*.txt.` folder.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Tip:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -37,6 +33,14 @@
     </message>
     <message>
         <source>-sargo-devel for the SearchNemo which source code formed the basis of this app</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&quot;Exporter.&quot; is for exporting your notes and bookmarks as plain text from the default apps. You can see exported data in `~/Documents/exported-*.txt.` folder. In addition you can use console mode by calling program harbour-exporter in your terminal. See &quot;harbour-exporter -h&quot; for more details.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If you want to support this app star the repository at the github ☺</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

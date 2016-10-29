@@ -63,6 +63,9 @@ Page {
                 qsTr("GitHub") + "</a>" +
                 "<br/>" +
                 "<br/>" +
+                qsTr("If you want to support this app star the repository at the github \u263a") +
+                "<br/>" +
+                "<br/>" +
                 qsTr("Special thanks:") +
                 "<br/>" + qsTr("-sargo-devel for the SearchNemo which source code formed the basis of this app") +
                 "<br/>" +
