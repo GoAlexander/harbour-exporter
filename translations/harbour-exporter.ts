@@ -43,6 +43,10 @@
         <source>If you want to support this app star the repository at the github ☺</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>-Ancelad for icons</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>CoverPage</name>

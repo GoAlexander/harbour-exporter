@@ -42,7 +42,8 @@ CONFIG += sailfishapp_i18n
 TRANSLATIONS += translations/harbour-exporter-de.ts
 
 DISTFILES += \
-    qml/pages/AboutPage.qml
+    qml/pages/AboutPage.qml \
+    qml/pages/ControlBigButton.qml
 
 
 HEADERS += \

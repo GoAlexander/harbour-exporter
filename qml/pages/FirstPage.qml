@@ -38,44 +38,37 @@ Page {
                 id: output
                 x: Theme.paddingLarge
                 horizontalAlignment: Text.Center
-                //text: qsTr("")
                 color: Theme.secondaryHighlightColor
                 font.pixelSize: Theme.fontSizeExtraLarge
             }
 
-            Button {
+            ControlBigButton {
                 id: notesButton
-                text: qsTr("Export notes")
                 anchors.horizontalCenter: parent.horizontalCenter
+                icon: "../images/notes.svg"
+                text: qsTr("Export notes")
+
                 onClicked: {
                     console.log("Export notes clicked!");
-
                     notes = myExporter.getNotes();
-                    console.log(notes);
-                    console.log(myExporter.write(notes, "/Documents/exported-notes.txt"));
-
-                    console.log("Export notes clicked!2");
+                    myExporter.write(notes, "/Documents/exported-notes.txt");
                     output.text = "Notes exported!";
-
                 }
             }
 
-            //TODO more space between buttons!
-
-            Button {
+            ControlBigButton {
                 id: bookmarksButton
-                text: qsTr("Export bookmarks")
                 anchors.horizontalCenter: parent.horizontalCenter
+                icon: "../images/bookmarks.svg"
+                text: qsTr("Export bookmarks")
+
                 onClicked: {
                     console.log("Export bookmarks clicked!");
-
                     bookmarks = myExporter.getBookmarks();
-                    console.log(bookmarks);
-                    console.log(myExporter.write(bookmarks, "/Documents/exported-bookmarks.txt"));
-
+                    myExporter.write(bookmarks, "/Documents/exported-bookmarks.txt");
                     output.text = "Bookmarks exported!";
                 }
-            }       
+            }
         }
     }
 }

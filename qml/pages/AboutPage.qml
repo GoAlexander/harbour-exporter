@@ -68,6 +68,7 @@ Page {
                 "<br/>" +
                 qsTr("Special thanks:") +
                 "<br/>" + qsTr("-sargo-devel for the SearchNemo which source code formed the basis of this app") +
+                "<br/>" + qsTr("-Ancelad for icons") +
                 "<br/>" +
                 "<br/>" +
                 qsTr("Tip:")+
