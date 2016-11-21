@@ -1,5 +1,6 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
+import org.nemomobile.notifications 1.0
 import Exporter 1.0
 
 Page {
@@ -12,6 +13,13 @@ Page {
     Exporter {
         id: myExporter
     }
+
+    Notification {
+        id: outputNotifications
+        category: "Exporter."
+        //appIcon: "/usr/share/example-app/icon-l-application"
+    }
+
 
     SilicaFlickable {
         anchors.fill: parent
@@ -30,45 +38,50 @@ Page {
 
             width: page.width
             spacing: Theme.paddingLarge
+
             PageHeader {
                 title: qsTr("Exporter.")
             }
 
-            Label {
-                id: output
-                x: Theme.paddingLarge
-                horizontalAlignment: Text.Center
-                color: Theme.secondaryHighlightColor
-                font.pixelSize: Theme.fontSizeExtraLarge
-            }
 
-            ControlBigButton {
-                id: notesButton
-                anchors.horizontalCenter: parent.horizontalCenter
-                icon: "../images/notes.svg"
-                text: qsTr("Export notes")
+            Row {
+                anchors.left: parent.left
+                anchors.right: parent.right
+                spacing: Theme.paddingLarge
 
-                onClicked: {
-                    console.log("Export notes clicked!");
-                    notes = myExporter.getNotes();
-                    myExporter.write(notes, "/Documents/exported-notes.txt");
-                    output.text = "Notes exported!";
+                ControlBigButton {
+                    id: notesButton
+                    icon: "../images/notes.svg"
+                    text: qsTr("Export notes")
+
+                    onClicked: {
+                        console.log("Export notes clicked!");
+                        notes = myExporter.getNotes();
+                        myExporter.write(notes, "/Documents/exported-notes.txt");
+
+                        outputNotifications.close()
+                        outputNotifications.previewBody = qsTr("Notes exported!")
+                        outputNotifications.publish()
+                    }
+                }
+
+                ControlBigButton {
+                    id: bookmarksButton
+                    icon: "../images/bookmarks.svg"
+                    text: qsTr("Export bookmarks")
+
+                    onClicked: {
+                        console.log("Export bookmarks clicked!");
+                        bookmarks = myExporter.getBookmarks();
+                        myExporter.write(bookmarks, "/Documents/exported-bookmarks.txt");
+
+                        outputNotifications.close()
+                        outputNotifications.previewBody = qsTr("Bookmarks exported!")
+                        outputNotifications.publish()
+                    }
                 }
             }
 
-            ControlBigButton {
-                id: bookmarksButton
-                anchors.horizontalCenter: parent.horizontalCenter
-                icon: "../images/bookmarks.svg"
-                text: qsTr("Export bookmarks")
-
-                onClicked: {
-                    console.log("Export bookmarks clicked!");
-                    bookmarks = myExporter.getBookmarks();
-                    myExporter.write(bookmarks, "/Documents/exported-bookmarks.txt");
-                    output.text = "Bookmarks exported!";
-                }
-            }
         }
     }
 }

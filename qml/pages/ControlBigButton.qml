@@ -1,5 +1,4 @@
 //Froked version from from: https://github.com/omnight/phonehook/blob/master/client/gui/qml/pages/ControlBigButton.qml
-
 import QtQuick 2.0
 import Sailfish.Silica 1.0
 
@@ -16,12 +15,12 @@ MouseArea {
         id: btn
         color: p.pressed ? Theme.rgba(Theme.highlightColor, 0.5) : Theme.rgba(Theme.highlightDimmerColor, 0.01)
         anchors.fill: parent
-        smooth: true
 
         Image {
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.top: parent.top
             anchors.topMargin: Theme.paddingLarge*2
+            smooth: true
             width: parent.width*.4
             height: parent.width*.4
             source: p.icon

@@ -81,5 +81,13 @@
         <source></source>
         <translation></translation>
     </message>
+    <message>
+        <source>Notes exported!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Bookmarks exported!</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 </TS>
