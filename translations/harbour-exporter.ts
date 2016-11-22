@@ -56,11 +56,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Make a donation (press button below) </source>
+        <source>Exporter.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Exporter.</source>
+        <source>Make a donation (button above) </source>
         <translation type="unfinished"></translation>
     </message>
 </context>
