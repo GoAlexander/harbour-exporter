@@ -77,7 +77,7 @@ int main(int argc, char *argv[])
     QGuiApplication *app = SailfishApp::application(argc, argv);
     QQuickView *view = SailfishApp::createView();
 
-    qmlRegisterType<Exporter>("Exporter", 1, 0, "Exporter");
+    qmlRegisterType<Exporter>("harbour.exporter.Exporter", 1, 0, "Exporter");
 
     view->setSource(SailfishApp::pathTo("qml/harbour-exporter.qml"));
     view->showFullScreen();
