@@ -51,7 +51,7 @@ Page {
 
                 ControlBigButton {
                     id: notesButton
-                    icon: "../images/notes.svg"
+                    icon: "../images/notes.png"
                     text: qsTr("Export notes")
 
                     onClicked: {
@@ -67,7 +67,7 @@ Page {
 
                 ControlBigButton {
                     id: bookmarksButton
-                    icon: "../images/bookmarks.svg"
+                    icon: "../images/bookmarks.png"
                     text: qsTr("Export bookmarks")
 
                     onClicked: {

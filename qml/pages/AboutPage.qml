@@ -31,61 +31,72 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
 
-
 Page {
     id: aboutPage
 
-    Column {
-        id: column
-        spacing: 5
-        width: parent.width
+    SilicaFlickable {
+        anchors.fill: parent
+        contentHeight: column.height
 
-        PageHeader {
-            title: qsTr("Chance.")
-        }
-
-        Text
-        {
-            id: titleLabel
-            anchors { horizontalCenter: parent.horizontalCenter }
+        Column {
+            id: column
+            spacing: Theme.paddingLarge
             width: parent.width
-            wrapMode: Text.WrapAtWordBoundaryOrAnywhere
-            horizontalAlignment: Text.AlignHCenter
-            textFormat: Text.RichText
-            font { family: Theme.fontFamily; pixelSize: Theme.fontSizeSmall }
-            color: Theme.highlightColor
-            text: "<style>a:link { color: " + Theme.highlightColor + "; }</style><br/>" +
-                qsTr("\"Exporter.\" is for exporting your notes and bookmarks as plain text from the default apps. You can see exported data in `~/Documents/exported-*.txt.` folder. In addition you can use console mode by calling program harbour-exporter in your terminal. See \"harbour-exporter -h\" for more details.") +
-                "<br/>" +
-                qsTr("License: GPLv3") +
-                "<br/><br/>" + qsTr("You can find the source code at the:") +
-                "<br/> <a href=\"https://github.com/GoAlexander/harbour-exporter\">" +
-                qsTr("GitHub") + "</a>" +
-                "<br/>" +
-                "<br/>" +
-                qsTr("If you want to support this app star the repository at the github \u263a") +
-                "<br/>" +
-                "<br/>" +
-                qsTr("Special thanks:") +
-                "<br/>" + qsTr("-sargo-devel for the SearchNemo which source code formed the basis of this app") +
-                "<br/>" + qsTr("-Ancelad for icons") +
-                "<br/>" +
-                "<br/>" +
-                qsTr("Tip:")+
-                "<br/>" +
-                qsTr("For using exported bookmarks in your desktop browser try OneTab extension.");
 
-            onLinkActivated:
-            {
-                Qt.openUrlExternally("https://github.com/GoAlexander/harbour-exporter");
+            PageHeader {
+                title: qsTr("Exporter.")
+            }
+
+            Button {
+                text: qsTr("Paypal donation")
+                anchors.horizontalCenter: parent.horizontalCenter
+                onClicked: {
+                    Qt.openUrlExternally("https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=E8CL7QXGEMQEG");
+                }
+            }
+
+            Text {
+                id: titleLabel
+                anchors { horizontalCenter: parent.horizontalCenter }
+                width: parent.width
+                wrapMode: Text.WrapAtWordBoundaryOrAnywhere
+                horizontalAlignment: Text.AlignHCenter
+                textFormat: Text.RichText
+                font { family: Theme.fontFamily; pixelSize: Theme.fontSizeSmall }
+                color: Theme.highlightColor
+                text: "<style>a:link { color: " + Theme.highlightColor + "; }</style><br/>" +
+                      qsTr("\"Exporter.\" is for exporting your notes and bookmarks as plain text from the default apps. You can see exported data in `~/Documents/exported-*.txt.` folder. In addition you can use console mode by calling program harbour-exporter in your terminal. See \"harbour-exporter -h\" for more details.") +
+                      "<br/>" +
+                      qsTr("License: GPLv3") +
+                      "<br/><br/>" + qsTr("You can find the source code at the:") +
+                      "<br/> <a href=\"https://github.com/GoAlexander/harbour-exporter\">" +
+                      qsTr("GitHub") + "</a>" +
+                      "<br/>" +
+                      "<br/>" +
+                      "<b>" + qsTr("If you want to support the developer:") +
+                      "<br/>" +
+                      qsTr("Make a donation (button above) ") +
+                      "<br/>" +
+                      qsTr("or") +
+                      "<br/>" +
+                      qsTr("Star the repository at the github \u263a") + "</b>" +
+                      "<br/>" +
+                      "<br/>" +
+                      qsTr("Special thanks:") +
+                      "<br/>" + qsTr("-sargo-devel for the SearchNemo which source code formed the basis of this app") +
+                      "<br/>" + qsTr("-Ancelad for icons") +
+                      "<br/>" +
+                      "<br/>" +
+                      qsTr("Tip:")+
+                      "<br/>" +
+                      qsTr("For using exported bookmarks in your desktop browser try OneTab extension.");
+
+                onLinkActivated: {
+                    Qt.openUrlExternally("https://github.com/GoAlexander/harbour-exporter");
+                }
+
             }
 
         }
     }
-
 }
-
-
-
-
-

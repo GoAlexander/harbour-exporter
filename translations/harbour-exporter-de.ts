@@ -4,10 +4,6 @@
 <context>
     <name>AboutPage</name>
     <message>
-        <source>Chance.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>License: GPLv3</source>
         <translation type="unfinished"></translation>
     </message>
@@ -40,11 +36,31 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>If you want to support this app star the repository at the github ☺</source>
+        <source>-Ancelad for icons</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>-Ancelad for icons</source>
+        <source>If you want to support the developer:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>or</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Star the repository at the github ☺</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Paypal donation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Make a donation (press button below) </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Exporter.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
