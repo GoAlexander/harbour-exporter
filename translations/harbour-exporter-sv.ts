@@ -56,12 +56,16 @@
         <translation>Paypal-donation</translation>
     </message>
     <message>
-        <source>Make a donation (press button below) </source>
-        <translation>Donera (tryck på nedanstående knapp) </translation>
-    </message>
-    <message>
         <source>Exporter.</source>
         <translation>Exporter.</translation>
+    </message>
+    <message>
+        <source>Make a donation (button above) </source>
+        <translation>Donera (ovanstående knapp) </translation>
+    </message>
+    <message>
+        <source>-eson57 for swedish translation</source>
+        <translation>-eson57 för Svensk översättning</translation>
     </message>
 </context>
 <context>
@@ -107,3 +111,4 @@
     </message>
 </context>
 </TS>
+
