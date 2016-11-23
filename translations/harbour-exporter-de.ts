@@ -63,6 +63,10 @@
         <source>Make a donation (button above) </source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>-eson57 for swedish translation</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>CoverPage</name>
