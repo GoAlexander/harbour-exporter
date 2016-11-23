@@ -65,7 +65,7 @@ CoverBackground {
         }
 
         CoverAction {
-            iconSource: "image://theme/icon-cover-message"
+            iconSource: "image://theme/icon-m-file-note"
             onTriggered: {
                 notes = myExporter.getNotes();
                 console.log(notes)
