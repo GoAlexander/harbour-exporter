@@ -67,6 +67,10 @@
         <source>-eson57 for swedish translation</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>-Quent-in for french translation</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>CoverPage</name>
