@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="sv">
+<TS version="2.1">
 <context>
     <name>AboutPage</name>
     <message>
         <source>License: GPLv3</source>
-        <translation>Licens: GPLv3</translation>
+        <translation>Licence : GPLv3</translation>
     </message>
     <message>
         <source>You can find the source code at the:</source>
-        <translation>Du hittar källkoden på:</translation>
+        <translation>Retrouvez le code source sur : </translation>
     </message>
     <message>
         <source>GitHub</source>
@@ -17,43 +17,43 @@
     </message>
     <message>
         <source>Tip:</source>
-        <translation>Tips:</translation>
+        <translation>Astuce : </translation>
     </message>
     <message>
         <source>For using exported bookmarks in your desktop browser try OneTab extension.</source>
-        <translation>För att använda exporterade bokmärken på skrivbordet, kan du prova webbläsartillägget OneTab.</translation>
+        <translation>Pour utiliser les marque-pages exportés sur votre navigateur essayez l'extension OneTab</translation>
     </message>
     <message>
         <source>Special thanks:</source>
-        <translation>Tack till:</translation>
+        <translation>Remerciements spéciaux : </translation>
     </message>
     <message>
         <source>-sargo-devel for the SearchNemo which source code formed the basis of this app</source>
-        <translation>-sargo-devel för SearchNemo, vars källkod formade grunden till den här appen</translation>
+        <translation>-sargo-devel pour SearchNema dont le code source est à la base de cette application</translation>
     </message>
     <message>
         <source>&quot;Exporter.&quot; is for exporting your notes and bookmarks as plain text from the default apps. You can see exported data in `~/Documents/exported-*.txt.` folder. In addition you can use console mode by calling program harbour-exporter in your terminal. See &quot;harbour-exporter -h&quot; for more details.</source>
-        <translation>&quot;Exporter.&quot; exporterar dina anteckningar och bokmärken som oformaterad text från standardprogrammen. Du kan se exporterad data i &quot;~/Documents/exported-*.txt.&quot;. Du kan också använda konsolläget genom att starta &quot;harbour-exporter&quot; i terminal. Se &quot;harbour-exporter -h&quot; för mer info.</translation>
+        <translation>&quot;Exporter.&quot; sert à exporter vos notes et marque-pages sous forme de fichier texte à partir des applicacions natives. Vous pouvez voir les données exportées dans le dossier `~/Documents/exported-*.txt.`. De plus vous pouvez utiliser le mode console en appelant le programme harbour-exporter dans le terminal. Voir &quot;harbour-exporter -h&quot; pour plus d'informations.</translation>
     </message>
     <message>
         <source>-Ancelad for icons</source>
-        <translation>-Ancelad för ikoner</translation>
+        <translation>-Ancelad pour les icônes</translation>
     </message>
     <message>
         <source>If you want to support the developer:</source>
-        <translation>Om du vill stödja utvecklaren:</translation>
+        <translation>Si vous souhaitez encourager le développeur : </translation>
     </message>
     <message>
         <source>or</source>
-        <translation>eller</translation>
+        <translation>ou</translation>
     </message>
     <message>
         <source>Star the repository at the github ☺</source>
-        <translation>Stjärnmärka kodlagret på GitHub ☺</translation>
+        <translation>Notez le repertoire sur GitHub ☺</translation>
     </message>
     <message>
         <source>Paypal donation</source>
-        <translation>Paypal-donation</translation>
+        <translation>Don Paypal</translation>
     </message>
     <message>
         <source>Exporter.</source>
@@ -61,11 +61,11 @@
     </message>
     <message>
         <source>Make a donation (button above) </source>
-        <translation>Donera (ovanstående knapp) </translation>
+        <translation>Faites un don (bouton ci-dessous)</translation>
     </message>
     <message>
         <source>-eson57 for swedish translation</source>
-        <translation>-eson57 för Svensk översättning</translation>
+        <translation>-eson57 pour la traduction en suédois</translation>
     </message>
 </context>
 <context>
@@ -83,7 +83,7 @@
     <name>FirstPage</name>
     <message>
         <source>About</source>
-        <translation>Om</translation>
+        <translation>À propos</translation>
     </message>
     <message>
         <source>Exporter.</source>
@@ -91,11 +91,11 @@
     </message>
     <message>
         <source>Export notes</source>
-        <translation>Exportera anteckningar</translation>
+        <translation>Exporter les notes</translation>
     </message>
     <message>
         <source>Export bookmarks</source>
-        <translation>Exportera bokmärken</translation>
+        <translation>Exporter les marque-pages</translation>
     </message>
     <message>
         <source></source>
@@ -103,12 +103,11 @@
     </message>
     <message>
         <source>Notes exported!</source>
-        <translation>Anteckningar exporterade!</translation>
+        <translation>NNotes exportées !</translation>
     </message>
     <message>
         <source>Bookmarks exported!</source>
-        <translation>Bokmärken exporterade!</translation>
+        <translation>Marque-pages exportés !</translation>
     </message>
 </context>
 </TS>
-

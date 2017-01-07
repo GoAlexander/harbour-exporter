@@ -39,7 +39,9 @@ CONFIG += sailfishapp_i18n
 # planning to localize your app, remember to comment out the
 # following TRANSLATIONS line. And also do not forget to
 # modify the localized app name in the the .desktop file.
-TRANSLATIONS += translations/harbour-exporter-de.ts
+TRANSLATIONS += translations/harbour-exporter-de.ts \
+    translations/harbour-exporter-sv.ts \
+    translations/harbour-exporter-fr.ts
 
 DISTFILES += \
     qml/pages/AboutPage.qml \
